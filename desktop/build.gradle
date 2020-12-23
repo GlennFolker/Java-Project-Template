@@ -16,8 +16,9 @@ task run(type: JavaExec, dependsOn: classes) {
 }
 
 jar {
-	archiveFileName = "${appName}Desktop.jar"
+	dependsOn configurations.runtimeClasspath
 
+	archiveFileName = "${appName}Desktop.jar"
 	from {
 		files(sourceSets.main.output.classesDirs)
 
