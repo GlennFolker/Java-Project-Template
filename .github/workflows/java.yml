@@ -15,13 +15,13 @@ jobs:
         java-version: 15
 
     - name: Grant permission to the Gradle wrapper
-    - run: chmod +x gradlew
+      run: chmod +x gradlew
 
     - name: Build desktop jar
-    - run: ./gradlew desktop:jar
+      run: ./gradlew desktop:jar
 
-    - name: Upload the built desktop jar
-      uses: actions/upload-artifact@v2.2.1
+    - name: Upload built desktop jar file
+      uses: actions/upload-artifact@v2
       with:
-        name: desktop
-        path: build/libs/*.jar
+        name: ${{ github.event.repository.name }}
+        path: desktop/build/libs/*.jar
