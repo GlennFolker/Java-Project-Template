@@ -16,6 +16,7 @@ public class DesktopLauncher extends Launcher {
                 setWindowedMode(800, 600);
                 setMaximized(true);
                 setTitle(APP_NAME);
+                setWindowIcon("sprites/icon.png");
             }} );
         } catch(Throwable e) {
             e.printStackTrace();
