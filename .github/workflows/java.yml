@@ -1,0 +1,28 @@
+name: Java CI
+
+on: [push]
+
+jobs:
+  jar:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up JDK 15
+      uses: actions/setup-java@v1
+      with:
+        java-version: 15
+
+    - name: Grant permission to the Gradle wrapper
+    - run: chmod +x gradlew
+
+    - name: Build desktop jar
+    - run: |
+      ./gradlew desktop:jar
+
+    - name: Upload built desktop jar file
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ github.event.repository.name }}Desktop.jar
+        path: desktop/build/libs/*.jar
