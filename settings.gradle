@@ -1,3 +1,4 @@
 include ":annotations"
 include ":template"
 include ":desktop"
+include ":tools"
