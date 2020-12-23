@@ -18,8 +18,7 @@ jobs:
     - run: chmod +x gradlew
 
     - name: Build desktop jar
-    - run: |
-      ./gradlew desktop:jar
+    - run: ./gradlew desktop:jar
 
     - name: Upload the built desktop jar
       uses: actions/upload-artifact@v2.2.1
