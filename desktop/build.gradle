@@ -1,0 +1,39 @@
+sourceSets.main {
+	java.srcDirs([ "src/" ])
+}
+
+ext {
+	mainClassName = "com.github.glenn.template.desktop.DesktopLauncher"
+}
+
+task run(type: JavaExec, dependsOn: classes) {
+	mainClass = "$mainClassName"
+    classpath = sourceSets.main.runtimeClasspath
+    workingDir = "../template/assets/"
+
+    standardInput = System.in
+    jvmArgs("--enable-preview")
+}
+
+jar {
+	archiveFileName = "${appName}Desktop.jar"
+
+	from {
+		files(sourceSets.main.output.classesDirs)
+
+		configurations.runtimeClasspath.collect {
+			it.isDirectory() ? it : zipTree(it)
+		}
+	}
+
+	manifest {
+		attributes "Main-Class": "$mainClassName"
+	}
+}
+
+dependencies {
+	implementation project(":template")
+
+	implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+	implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+}

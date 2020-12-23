@@ -1,0 +1,11 @@
+sourceSets.main {
+    java.srcDirs([ "src/", "$buildDir/generated/sources/annotationProcessor/java/main/" ])
+    resources.srcDirs([ "assets/" ])
+}
+
+dependencies {
+	implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+    compileOnly project(":annotations")
+    annotationProcessor project(":annotations")
+}

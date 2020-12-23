@@ -1,0 +1,50 @@
+buildscript {
+    ext {
+        props = new Properties().with{ p -> p.load(file("gradle.properties").newReader()); return p }
+        gdxVersion = props["gdxVersion"]
+    }
+
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "com.badlogicgames.gdx:gdx:$gdxVersion"
+    }
+}
+
+allprojects {
+    apply plugin: "java"
+    apply plugin: "java-library"
+
+    group = "com.github.glenn"
+    version = "1.0-SNAPSHOT"
+
+    targetCompatibility = 8
+    sourceCompatibility = 15
+
+    ext {
+        appName = props["appName"]
+        gdxVersion = props["gdxVersion"]
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding("UTF-8")
+
+        options.compilerArgs = options.compilerArgs.findAll{ it != "--enable-preview" }
+        options.compilerArgs.addAll([ "--release", "15", "--enable-preview" ])
+    }
+
+    tasks.withType(Javadoc) {
+        options {
+            addStringOption("Xdoclint:none", "-quiet")
+
+            addStringOption("-release", "15")
+            addBooleanOption("-enable-preview", true)
+        }
+    }
+
+    repositories {
+        jcenter()
+    }
+}
